@@ -1,0 +1,114 @@
+﻿<Window x:Class="WpfApp1.Window5"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Gestion du Matériel" Height="700" Width="900"
+        Background="White">
+    <Window.Resources>
+        <Style x:Key="TypeButton" TargetType="ToggleButton">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#0B3D6B"/>
+            <Setter Property="BorderBrush" Value="#0B3D6B"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="#0B3D6B"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E8F0F8"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Panel.ZIndex="1">
+            <Button x:Name="BtnRetour"
+                    Content="&#xE76B;"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="13"
+                    Foreground="#0B3D6B"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Padding="0"
+                    Width="18" Height="18"
+                    Margin="0,0,4,0"
+                    Command="{Binding RetourCommand}"
+                    ToolTip="Retour"/>
+            <TextBlock Text="AIRBUS" FontSize="24" FontWeight="Bold" Foreground="#0B3D6B" VerticalAlignment="Center"/>
+        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="60,40">
+                <TextBlock Text="Gestion du Matériel" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                <TextBlock Text="Sélectionnez le type et remplissez les informations"  FontSize="14" Foreground="Gray" HorizontalAlignment="Center" Margin="0,0,0,32"/>
+                <TextBlock Text="Type de matériel" FontSize="14" Foreground="#0B3D6B" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,0,0,12"/>
+                <WrapPanel HorizontalAlignment="Center" Margin="0,0,0,32">
+                    <ToggleButton x:Name="RbPcPortable" Content="PC Portable" IsChecked="{Binding IsPcPortableChecked}" Style="{StaticResource TypeButton}"/>
+                    <ToggleButton x:Name="RbPcFixe" Content="PC Fixe" IsChecked="{Binding IsPcFixeChecked}" Style="{StaticResource TypeButton}"/>
+                    <ToggleButton x:Name="RbTablette" Content="Tablette" IsChecked="{Binding IsTabletteChecked}" Style="{StaticResource TypeButton}"/>
+                    <ToggleButton x:Name="RbTelephone" Content="Téléphone" IsChecked="{Binding IsTelephoneChecked}" Style="{StaticResource TypeButton}"/>
+                </WrapPanel>
+                <Grid x:Name="PanelPC" Visibility="{Binding PanelPCVisible, Converter={StaticResource BoolToVis}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="TbEtiquette" Text="{Binding Etiquette, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Étiquette" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,24"/>
+                    <TextBox x:Name="TbNom" Text="{Binding Nom, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="0" Grid.Row="1" Margin="0,0,16,24"/>
+                    <TextBox x:Name="TbMarque" Text="{Binding Marque, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Marque" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="1" Grid.Row="1" Margin="0,0,0,24"/>
+                    <TextBox x:Name="TbModele" Text="{Binding Modele, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Modèle" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="0" Grid.Row="2" Margin="0,0,16,24"/>
+                    <TextBox x:Name="TbNumSerie" Text="{Binding NumSerie, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Numéro de série" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="1" Grid.Row="2" Margin="0,0,0,24"/>
+                    <TextBox x:Name="TbStockage" Text="{Binding Stockage, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Stockage (ex: 512 Go SSD)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="0" Grid.Row="3" Margin="0,0,16,24"/>
+                    <TextBox x:Name="TbMemoire" Text="{Binding Memoire, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Mémoire RAM (ex: 16 Go)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="1" Grid.Row="3" Margin="0,0,0,24"/>
+                    <TextBox x:Name="TbMacAdresse" Text="{Binding MacAdresse, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Adresse MAC" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="0" Grid.Row="4" Margin="0,0,16,24"/>
+                    <TextBox x:Name="TbProcesseur" Text="{Binding Processeur, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Processeur (ex: Intel i7)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="1" Grid.Row="4" Margin="0,0,0,24"/>
+                </Grid>
+                <Grid x:Name="PanelMobile" Visibility="{Binding PanelMobileVisible, Converter={StaticResource BoolToVis}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="TbEtiquetteMobile" Text="{Binding EtiquetteMobile, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Étiquette" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,24"/>
+                    <TextBox x:Name="TbMarqueMobile" Text="{Binding MarqueMobile, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Marque" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="0" Grid.Row="1" Margin="0,0,16,24"/>
+                    <TextBox x:Name="TbModeleMobile" Text="{Binding ModeleMobile, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Modèle" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="1" Grid.Row="1" Margin="0,0,0,24"/>
+                    <TextBox x:Name="TbCouleur" Text="{Binding Couleur, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Couleur" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="0" Grid.Row="2" Margin="0,0,16,24"/>
+                    <TextBox x:Name="TbStockageMobile" Text="{Binding StockageMobile, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Stockage (ex: 128 Go)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Column="1" Grid.Row="2" Margin="0,0,0,24"/>
+                </Grid>
+                <Button x:Name="BtnEnregistrer" Content="Enregistrer" Visibility="{Binding BtnEnregistrerVisible, Converter={StaticResource BoolToVis}}" Style="{StaticResource MaterialDesignRaisedButton}" Background="#0B3D6B" BorderBrush="#0B3D6B" Foreground="White" Height="45" FontWeight="Bold" Width="300" HorizontalAlignment="Center" Command="{Binding EnregistrerCommand}" Margin="0,16,0,0"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

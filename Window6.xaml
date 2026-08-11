@@ -1,0 +1,57 @@
+﻿<Window x:Class="WpfApp1.Window6"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        Title="Consommable" Height="500" Width="800"
+        Background="White" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Panel.ZIndex="1">
+            <Button x:Name="BtnRetour"
+            Content="&#xE76B;"
+            FontFamily="Segoe MDL2 Assets"
+            FontSize="13"
+            Foreground="#0B3D6B"
+            Background="Transparent"
+            BorderThickness="0"
+            Cursor="Hand"
+            Padding="0"
+            Width="30" Height="18"
+            Command="{Binding RetourCommand}"
+            ToolTip="Retour"/>
+            <TextBlock Text="AIRBUS" FontSize="24" FontWeight="Bold" Foreground="#0B3D6B" VerticalAlignment="Center"/>
+        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,44,0,0">
+            <StackPanel Margin="60,20,60,40">
+                <TextBlock Text="Consommable" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                <TextBlock Text="Sélectionnez le modèle et la couleur" FontSize="14" Foreground="Gray" HorizontalAlignment="Center" Margin="0,0,0,32"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox x:Name="CbModele" SelectedValuePath="Content" SelectedValue="{Binding SelectedModele}" Grid.Row="0" Grid.Column="0" Margin="0,0,20,24" materialDesign:HintAssist.Hint="Modèle" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <ComboBoxItem>C8155</ComboBoxItem>
+                        <ComboBoxItem>B9100</ComboBoxItem>
+                        <ComboBoxItem>B7130</ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox x:Name="CbCouleur" SelectedValuePath="Content" SelectedValue="{Binding SelectedCouleur}" Grid.Row="0" Grid.Column="1" Margin="0,0,0,24" materialDesign:HintAssist.Hint="Couleur">
+                        <ComboBoxItem>Black</ComboBoxItem>
+                        <ComboBoxItem>Cyan</ComboBoxItem>
+                        <ComboBoxItem>Yellow</ComboBoxItem>
+                        <ComboBoxItem>Magenta</ComboBoxItem>
+                    </ComboBox>
+                    <TextBox x:Name="TbReference" Text="{Binding Reference}" Grid.Row="1" Grid.ColumnSpan="2" IsReadOnly="True" Foreground="#0B3D6B" FontWeight="SemiBold" materialDesign:HintAssist.Hint="Référence" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,0,24"/>
+                </Grid>
+                <Button Content="Enrregistrer" Height="45" Width="300" HorizontalAlignment="Center" Margin="0,20,0,0" Style="{StaticResource MaterialDesignRaisedButton}" Background="#0B3D6B" BorderBrush="#0B3D6B" Foreground="White" FontWeight="Bold" Command="{Binding EnregistrerCommand}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -1,0 +1,166 @@
+﻿<Window x:Class="WpfApp1.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Window1" Height="500" Width="850"
+        Background="White">
+
+    <Grid>
+        <Grid VerticalAlignment="Top" Margin="15,15,15,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="AIRBUS" FontSize="24" FontWeight="Bold" Foreground="#0B3D6B" VerticalAlignment="Center"/>
+
+            <Grid Grid.Column="1" Width="46" Height="46">
+                <Button x:Name="BtnNotification" Command="{Binding ToggleNotificationPopupCommand}" Width="46" Height="46" Cursor="Hand" ToolTip="Notifications" Panel.ZIndex="99">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="Bd" Background="#0B3D6B" CornerRadius="23">
+                                <TextBlock Text="🔔" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bd" Property="Background" Value="#144d7e"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Border x:Name="BadgeNotif" Background="Red" CornerRadius="10" Width="20" Height="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-6,-6,0" Visibility="{Binding HasNotifications, Converter={StaticResource BoolToVis}}" IsHitTestVisible="False" Panel.ZIndex="100">
+                    <TextBlock x:Name="TxtBadgeCount" Text="{Binding BadgeCount}" Foreground="White" FontSize="11" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+
+                <Popup x:Name="PopupNotifications" IsOpen="{Binding PopupOpen, Mode=TwoWay}" PlacementTarget="{Binding ElementName=BtnNotification}" Placement="Bottom" StaysOpen="False" AllowsTransparency="True">
+                    <Border Background="White" BorderBrush="#D0DCE8" BorderThickness="1" CornerRadius="8" Width="320" MaxHeight="380" Padding="6">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="12" ShadowDepth="2" Color="#0B3D6B" Opacity="0.15"/>
+                        </Border.Effect>
+                        <StackPanel>
+                            <TextBlock Text="Nouvelles commandes" FontWeight="Bold" Foreground="#0B3D6B" Margin="6,4,0,6"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="300">
+                                <ItemsControl x:Name="ListNotifications" ItemsSource="{Binding Notifications}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Button Command="{Binding DataContext.NotificationItemClickCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding Id}" Background="Transparent" BorderThickness="0" Cursor="Hand" HorizontalContentAlignment="Stretch" Padding="0">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="#EEEEEE" BorderThickness="0,0,0,1" Padding="8">
+                                                            <ContentPresenter/>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter TargetName="Bd" Property="Background" Value="#F0F4FA"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                                <StackPanel>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Text="{Binding Titre}" FontWeight="SemiBold" FontSize="12" Foreground="#0B3D6B"/>
+                                                        <Ellipse Grid.Column="1" Width="8" Height="8" Fill="#1E88E5" VerticalAlignment="Top" Margin="4,2,0,0"/>
+                                                    </Grid>
+                                                    <TextBlock Text="{Binding Details}" FontSize="11" Foreground="#6B85A0" TextWrapping="Wrap"/>
+                                                    <TextBlock Text="{Binding Date}" FontSize="10" Foreground="#A8C0D6"/>
+                                                    <TextBlock Text="Cliquez pour marquer comme lu" FontSize="9" FontStyle="Italic" Foreground="#A8C0D6" Margin="0,3,0,0"/>
+                                                </StackPanel>
+                                            </Button>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                            <TextBlock x:Name="TxtAucuneNotif" Text="Aucune nouvelle commande" FontSize="12" Foreground="#A8C0D6" HorizontalAlignment="Center" Margin="0,10,0,6" Visibility="{Binding HasNotifications, Converter={StaticResource InverseBoolToVis}}"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+            </Grid>
+        </Grid>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="400">
+            <TextBlock Text="Bonjour !" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+            <TextBlock Text="connectez-vous à votre compte" FontSize="14" Foreground="Gray" HorizontalAlignment="Center" Margin="0,0,0,40"/>
+
+            <ComboBox x:Name="Mail" 
+                      materialDesign:HintAssist.Hint="E-mail" 
+                      Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                      IsEditable="True" 
+                      IsTextSearchEnabled="False"
+                      Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding EmailSuggestions}"
+                      IsDropDownOpen="{Binding IsDropDownOpen}"
+                      Margin="0,0,0,24"/>
+
+            <!-- حقل كلمة المرور مع زر التبديل الاحترافي بأيقونات Material Design الرسمية (العين المفتوحة والعين المغلقة) -->
+            <Grid Margin="0,0,0,8" VerticalAlignment="Center">
+                <PasswordBox x:Name="mdp" 
+                             materialDesign:HintAssist.Hint="Mot de passe" 
+                             Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" 
+                             Padding="0,4,30,4"
+                             Visibility="Visible"/>
+
+                <TextBox x:Name="mdpText" 
+                         materialDesign:HintAssist.Hint="Mot de passe" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                         Padding="0,4,30,4"
+                         Visibility="Collapsed"
+                         Text="{Binding Password, ElementName=mdp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <ToggleButton x:Name="btnToggleShow"
+                              HorizontalAlignment="Right" 
+                              VerticalAlignment="Bottom"
+                              Margin="0,0,5,6"
+                              Width="25" 
+                              Height="25"
+                              Cursor="Hand"
+                              Background="Transparent"
+                              BorderBrush="Transparent"
+                              Checked="BtnToggleShow_Checked"
+                              Unchecked="BtnToggleShow_Unchecked">
+                    <ToggleButton.Template>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Grid Background="Transparent">
+                                <!-- العين المفتوحة (الوضع الافتراضي: النص مشفر) -->
+                                <materialDesign:PackIcon x:Name="eyeOpen" Kind="Eye" Width="18" Height="18" Foreground="#0B3D6B" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <!-- العين المغلقة (عند التفعيل لرؤية النص) -->
+                                <materialDesign:PackIcon x:Name="eyeClosed" Kind="EyeOff" Width="18" Height="18" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="eyeOpen" Property="Visibility" Value="Collapsed"/>
+                                    <Setter TargetName="eyeClosed" Property="Visibility" Value="Visible"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </ToggleButton.Template>
+                </ToggleButton>
+            </Grid>
+
+            <TextBlock HorizontalAlignment="Right" Margin="0,0,0,24">
+                <Hyperlink Command="{Binding ForgotPasswordCommand}" Foreground="#0B3D6B">
+                    <Run Text="Mot de passe oublié ?"/>
+                </Hyperlink>
+            </TextBlock>
+
+            <Button Content="Se connecter" Style="{StaticResource MaterialDesignRaisedButton}" Background="#0B3D6B" BorderBrush="#0B3D6B" Foreground="White" Height="45" FontWeight="Bold" Margin="0,0,0,15" Command="{Binding LoginCommand}"/>
+            <Button Content="Commander" Style="{StaticResource MaterialDesignRaisedButton}" Background="#0B3D6B" BorderBrush="#0B3D6B" Foreground="White" Height="45" FontWeight="Bold" Margin="0,0,0,24" Command="{Binding CommanderCommand}"/>
+
+            <TextBlock HorizontalAlignment="Center">
+                <Run Text="Vous n'avez pas de compte ? "/>
+                <Hyperlink Command="{Binding CreateAccountCommand}">
+                    <Run Text="Créer un compte"/>
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

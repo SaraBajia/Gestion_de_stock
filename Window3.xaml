@@ -1,0 +1,59 @@
+﻿<Window x:Class="WpfApp1.Window3"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Window3" Height="500" Width="900"
+        Background="White">
+    <Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0">
+            <Button x:Name="BtnRetour"
+                    Content="&#xE76B;"
+                    FontFamily="Segoe MDL2 Assets"
+                    FontSize="13"
+                    Foreground="#0B3D6B"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Padding="0"
+                    Width="30" Height="18"
+                    Command="{Binding RetourCommand}"
+                    ToolTip="Retour"/>
+            <TextBlock Text="AIRBUS" FontSize="24" FontWeight="Bold" Foreground="#0B3D6B" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Choisissez une catégorie" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+            <TextBlock Text="Sélectionnez le type d'article à gérer" FontSize="14" Foreground="Gray" HorizontalAlignment="Center" Margin="0,0,0,40"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="MaterielButton" Width="280" Height="180" Margin="0,0,30,0" Command="{Binding MaterielCommand}" Cursor="Hand" Style="{StaticResource MaterialDesignRaisedButton}">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#0B3D6B" Offset="0"/>
+                            <GradientStop Color="#1F5C94" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="Toolbox" Width="48" Height="48" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,12"/>
+                        <TextBlock Text="Matériel" FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="ConsommableButton" Width="280" Height="180" Command="{Binding ConsommableCommand}" Cursor="Hand" Style="{StaticResource MaterialDesignRaisedButton}">
+                    <Button.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#37474F" Offset="0"/>
+                            <GradientStop Color="#546E7A" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="PackageVariant" Width="48" Height="48" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,12"/>
+                        <TextBlock Text="Consommable" FontSize="20" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <Button Content="Afficher le stock" Width="200" Height="40" Margin="0,30,0,0" Background="#0B3D6B" Foreground="White" FontWeight="Bold" BorderBrush="#0B3D6B" Cursor="Hand" Style="{StaticResource MaterialDesignRaisedButton}" Command="{Binding AfficherCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>
