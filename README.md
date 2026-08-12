@@ -165,7 +165,7 @@ Pour exécuter le projet, il est nécessaire d’avoir :
 
 1. Cloner le repository
 
-    git clone https://github.com/SaraBajia/Gestion_de_stock_du_materiel.git
+    git clone https://github.com/SaraBajia/Gestion_de_stock.git
 
 2. Ouvrir le projet
 
