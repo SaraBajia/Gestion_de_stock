@@ -128,24 +128,26 @@ Cette double exportation facilite :
 
 
 ## 🖥️ Captures d'écran
-	### 🚀 Première interface 
-		![Première interface](screenshots/interface1.png)
-	### 🔐 Interface de connexion
-		![Interface de connexion](screenshots/login.png)
-	### 🔀 Choix de catégorie
-		![Choix de catégorie](screenshots/choix.png)
-	### 🖨️ Gestion des consommables
-		![Gestion des consommables](screenshots/consommable.png)
-	### 💻 Gestion du matériel
-		![Gestion du matériel](screenshots/materiel.png)
-	### 🔧 Gestion des pièces de rechange
-		![Pièces de rechange](screenshots/piece_de_rechange.png)
-	### 📦 Gestion du stock
-		![Gestion du stock](screenshots/stock.png)
-	### 🔄 Mouvements du stock
-		![Mouvements du stock](screenshots/mouvement.png)
-	### 📋 Gestion des commandes
-		![Gestion des commandes](screenshots/commande.png)
+
+### 🚀 Première interface 
+![Première interface](screenshots/interface1.png)
+### 🔐 Interface de connexion
+![Interface de connexion](screenshots/login.png)
+### 🔀 Choix de catégorie
+![Choix de catégorie](screenshots/choix.png)
+### 🖨️ Gestion des consommables
+![Gestion des consommables](screenshots/consommable.png)
+### 💻 Gestion du matériel
+![Gestion du matériel](screenshots/materiel.png)
+### 🔧 Gestion des pièces de rechange
+![Pièces de rechange](screenshots/piece_de_rechange.png)
+### 📦 Gestion du stock
+![Gestion du stock](screenshots/stock.png)
+### 🔄 Mouvements du stock
+![Mouvements du stock](screenshots/mouvement.png)
+### 📋 Gestion des commandes
+![Gestion des commandes](screenshots/commande.png)
+
 ## 🎨 Interface utilisateur
 
 L’interface graphique est développée avec WPF et utilise Material Design afin de proposer une expérience utilisateur moderne et professionnelle.
